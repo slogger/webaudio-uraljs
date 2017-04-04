@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<title>WebAudio</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="shower/themes/material/styles/screen-16x10.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="shower list">
+	<header class="caption">
+		<h1>WebAudio</h1>
+		<p>Сырых Максим, СКБ Контур</p>
+	</header>
+	<section class="slide" id="cover">
+		<h2>Фантастический WebAudio и где его <del>искать</del> юзать</h2>
+		<p><a href="http://github.com/slogger">Максим Сырых</a> для #uraljs №3</p>
+		<img src="pictures/cover.jpg" alt="" class="cover">
+		<style>
+			#cover h2 {
+				margin: 30px 0 0;
+				color: #FFF;
+				text-align: center;
+				font-size: 70px;
+			}
+
+			#cover p {
+				margin: 10px 0 0;
+				text-align: center;
+				color: #FFF;
+				font-style: italic;
+				font-size: 20px;
+			}
+
+			#cover p a {
+				color: #FFF;
+			}
+
+			.cover {
+				opacity: 0.6;
+			}
+		</style>
+	</section>
+	<section class="slide">
+		<h3 class="shout shrink">bit.ly/uraljs-webaudio</h3>
+	</section>
+	<section class="slide text-center" id="tag-audio">
+		<h2>&lt;audio&gt;</h2>
+		<img src="pictures/picture.jpg" alt="" class="cover">
+	</section>
+	<section class="slide">
+		<h2>Элемент &lt;audio&gt;</h2>
+		<pre class="html">
+			<code>&lt;audio src="<mark class="important">src.wav</mark>"&gt;</code>
+			<code>    Ваш браузер не поддерживает элемент audio</code>
+			<code>&lt;/audio&gt;</code>
+		</pre>
+	</section>
+	<section class="slide">
+		<h2>Поддерживаемые форматы</h2>
+		<table>
+			<tr>
+				<th scope="col"></th>
+				<th>Chrome</th>
+				<th>Firefox</th>
+				<th>Safari</th>
+				<th>IE 9+</th>
+			</tr>
+			<tr>
+				<th scope="row">WebM + VP8/VP9 + Vorbis/Opus</th>
+				<td>+</td>
+				<td>+</td>
+				<td>+</td>
+				<td>–</td>
+			</tr>
+			<tr>
+				<th scope="row">Ogg + Theora + Vorbis/Opus</th>
+				<td>+</td>
+				<td>+</td>
+				<td>–</td>
+				<td>–</td>
+			</tr>
+			<tr>
+				<th scope="row">MP4 + H.264 + AAC/MP3</th>
+				<td>+</td>
+				<td>+</td>
+				<td>+</td>
+				<td>+</td>
+			</tr>
+			<tr>
+				<th scope="row">MP3</th>
+				<td>+</td>
+				<td>+</td>
+				<td>+</td>
+				<td>+</td>
+			</tr>
+			<tr>
+				<th scope="row">WAVE + PCM</th>
+				<td>+</td>
+				<td>+</td>
+				<td>+</td>
+				<td>–</td>
+			</tr>
+			<tr>
+				<th scope="row">FLAC</th>
+				<td>–</td>
+				<td>51+</td>
+				<td>–</td>
+				<td>–</td>
+			</tr>
+		</table>
+	</section>
+	<section class="slide">
+		<h2>Элемент &lt;source&gt;</h2>
+		<pre  class="html">
+			<code>&lt;audio&gt;</code>
+			<code>    &lt;source <mark class="important">src="example.webm" type="audio/webm"</mark>&gt;</code>
+			<code>    &lt;source <mark class="important">src="example.mp4" type="audio/mp4"</mark>&gt;</code>
+			<code>&lt;/audio&gt;</code>
+		</pre>
+	</section>
+	<section class="slide">
+		<h2>DEMO: &lt;audio&gt;</h2>
+		<pre class="js">
+			<code>let audio = document.createElement('audio')</code>
+		  <code>audio.src = 'sounds/tag-audio-demo.mp3'</code>
+			<code> </code>
+			<code>let btnMute = document.getElementById('tag-audio-demo--mute')</code>
+			<code>let playMute = document.getElementById('tag-audio-demo--play')</code>
+			<code>let pauseMute = document.getElementById('tag-audio-demo--pause')</code>
+		</pre>
+	</section>
+	<section class="slide">
+		<h2>DEMO: &lt;audio&gt;</h2>
+		<pre class="js">
+			<code>btnMute.onClick = e =&gt; {</code>
+			<code>	audio.muted = !audio.muted</code>
+			<code>}</code>
+			<code> </code>
+			<code>playMute.onClick = () =&gt; { audio.play() }</code>
+			<code>pauseMute.onClick = () =&gt; { audio.pause() }</code>
+		</pre>
+	</section>
+	<section class="slide">
+		<h2>DEMO: &lt;audio&gt;</h2>
+		<div class="buttons">
+	    <button id="tag-audio-demo--mute" class="btn btn-red">Mute</button>
+	    <button id="tag-audio-demo--play"class="btn btn-green">Play</button>
+	    <button id="tag-audio-demo--pause"class="btn btn-yellow">Pause</button>
+	  </div>
+	</section>
+	<section class="slide text-center" id="web-audio">
+		<h2>Web Audio API</h2>
+		<img src="pictures/cover-2.jpg" alt="" class="cover">
+	</section>
+	<section class="slide" id="caniuse">
+		<img src="pictures/caniuse.png" alt="" class="cover w no-opacity">
+	</section>
+	<section class="slide">
+		<h2>DEMO</h2>
+		<ol>
+			<li><a href="https://yamblzmusichackathon.github.io" target="_blank">DEMO 1</a></li>
+			<li><a href="http://pablotheflamingo.com" target="_blank">DEMO 2</a></li>
+			<li><a href="http://anxietybrain.net" target="_blank">DEMO 3</a></li>
+		</ol>
+	</section>
+	<section class="slide">
+		<img src="pictures/WebAudioBasics.png" alt="" class="cover h no-opacity">
+	</section>
+	<section class="slide text-center" id="tag-audio">
+		<h2>node.connect()</h2>
+		<img src="pictures/cover-3.jpg" alt="" class="cover">
+	</section>
+	<section class="slide">
+		<h2>node.connect(node)</h2>
+		<pre class="js">
+			<code>const myAudio = document.querySelector('audio')</code>
+			<code class="mark">const context = new AudioContext()</code>
+			<code> </code>
+			<code>const source = <mark class="important">context.createMediaElementSource(myAudio)</mark></code>
+			<code>const gainNode = context.createGain()</code>
+			<code>const delayNode = context.createDelay(5.0)</code>
+		</pre>
+	</section>
+	<section class="slide">
+		<h2>node.connect(node)</h2>
+		<pre class="js">
+			<code>...</code>
+			<code>source.connect(delayNode)</code>
+			<code>delayNode.connect(gainNode)</code>
+			<code>gainNode.connect(<mark class="important">context.destination</mark>)</code>
+		</pre>
+	</section>
+	<section class="slide">
+		<h2>Типы узлов</h2>
+		<ol>
+			<li>Источники и выходы звука</li>
+			<li>Фильтры</li>
+			<li>Анализаторы</li>
+			<li>...</li>
+		</ol>
+	</section>
+	<section class="slide">
+		<h2>Источники звука</h2>
+		<ol>
+			<li>MediaElementAudioSourceNode</li>
+			<li class="next">MediaStreamAudioSourceNode</li>
+		</ol>
+	</section>
+	<!-- <section class="slide">
+		<h2>MediaElementAudioSourceNode</h2>
+		<pre class="js">
+			<code>const context = new AudioContext()</code>
+			<code>const myAudio = document.querySelector('audio')</code>
+			<code>const source = <mark class="important">context.createMediaElementSource(myAudio)</mark></code>
+		</pre>
+	</section> -->
+	<section class="slide">
+		<h2>MediaStreamAudioSourceNode</h2>
+		<pre class="js">
+			<code>const context = new AudioContext()</code>
+			<code><mark class="important">navigator.getUserMedia</mark>(</code>
+			<code>	{ audio: true, video: false },</code>
+			<code>	stream => {</code>
+			<code>		const source = <mark class="important">context.createMediaStreamSource(stream)</mark></code>
+			<code>	}</code>
+			<code>)</code>
+		</pre>
+	</section>
+	<section class="slide">
+		<span id="note-name" class="note-name"></span>
+	</section>
+	<section class="slide">
+		<h2>Источники звука</h2>
+		<ol>
+			<li>MediaElementAudioSourceNode</li>
+			<li>MediaStreamAudioSourceNode</li>
+			<li>AudioBufferSourceNode</li>
+			<li class="next">OscillatorNode</li>
+		</ol>
+	</section>
+	<section class="slide">
+		<h2>Demo: Synth
+			<input type="checkbox" size="10" onchange="toggleStartStop(this.checked)" />
+			<input type="range" min="0" max="1" step="0.01" oninput="changeFilterFreg(this)"/>
+			<input type="range" min="0" max="1" step="0.01" oninput="changeFilterQuality(this)"/>
+
+		</h1>
+		<style media="screen">
+			.oscillator-wrap {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+			}
+			.oscillator {
+				float: left;
+				flex-shrink: 0;
+				flex-grow: 1;
+				flex-basis: 300px;
+				background: #444;
+				margin: 1em;
+				padding: 0 1em;
+				border-radius: 1em;
+			}
+		</style>
+		<div class="oscillator-wrap">
+			<div class="oscillator">
+				<h3> Oscillator 1</h3>
+	    	Output : <select data-oscindex="1" onchange="selectionChanged(this)">
+		      <option value="0">None</option>
+		      <option value="2">Oscillator 2</option>
+		      <option value="3">Oscillator 3</option>
+		      <option value="4">Oscillator 4</option>
+		      <option value="5">Speaker</option>
+		    </select>
+	    	<br>
+	    	Freq : <input data-oscindex="1" type="range" min="1" max="5000" step="1" oninput="freqChanged(this)"/> <label> 440Hz </label>
+	  	</div>
+
+  		<div class = "oscillator">
+	    	<h3> Oscillator 2</h3>
+	    	Output : <select data-oscindex="2" onchange="selectionChanged(this)">
+		      <option value="0">None</option>
+		      <option value="1">Oscillator 1</option>
+		      <option value="3">Oscillator 3</option>
+		      <option value="4">Oscillator 4</option>
+		      <option value="5">Speaker</option>
+	    	</select>
+	     	<br>
+	    	Freq : <input data-oscindex="2" type="range" min="1" max="5000" step="1" oninput="freqChanged(this)"/> <label> 440Hz </label>
+	  	</div>
+
+		  <div class = "oscillator">
+		    <h3> Oscillator 3</h3>
+		    Output : <select data-oscindex="3" onchange="selectionChanged(this)">
+		      <option value="0">None</option>
+		      <option value="1">Oscillator 1</option>
+		      <option value="2">Oscillator 2</option>
+		      <option value="4">Oscillator 4</option>
+		      <option value="5">Speaker</option>
+		  	</select>
+		   	<br>
+		    Freq : <input data-oscindex="3" type="range" min="1" max="5000" step="1" oninput="freqChanged(this)"/> <label> 440Hz </label>
+		  </div>
+
+		  <div class = "oscillator">
+		    <h3> Oscillator 4</h3>
+		    Output : <select data-oscindex="4" onchange="selectionChanged(this)">
+		      <option value="0">None</option>
+		      <option value="1">Oscillator 1</option>
+		      <option value="2">Oscillator 2</option>
+		      <option value="3">Oscillator 3</option>
+		      <option value="5">Speaker</option>
+		    </select>
+		   	<br>
+		    Freq : <input data-oscindex="4" type="range"  min="1" max="5000" step="1"  oninput="freqChanged(this)"/> <label> 440Hz </label>
+		  </div>
+		</div>
+	</section>
+	<section class="slide text-center">
+		<h2>Фильтры</h2>
+	</section>
+	<section class="slide">
+		<h2>Gain \ усилитель</h2>
+		<pre>
+			<code>const context = new AudioContext()</code>
+			<code class="mark">const gainNode = context.createGain()</code>
+			<code> </code>
+			<code>gainNode.gain.value = 0 <span class="comment">// muted</span></code>
+			<code>gainNode.gain.value = 1 <span class="comment">// 100% volume</span></code>
+			<code>gainNode.gain.value = 3 <span class="comment">// 300% volume</span></code>
+		</pre>
+	</section>
+	<section class="slide">
+		<h2>Delay \ задержка</h2>
+		<pre>
+			<code>const context = new AudioContext()</code>
+			<code class="mark">const delayNode = context.createDelay(1.0)</code>
+		</pre>
+	</section>
+	<section class="slide">
+		<h2>BiquadFilterNode</h2>
+		<pre class="js">
+			<code>const context = new AudioContext()</code>
+			<code class="mark">const biquadFilter = context.createBiquadFilter()</code>
+			<code>biquadFilter.<mark class="important">type = "bandpass"</mark></code>
+			<code>biquadFilter.<mark class="important">frequency.value</mark> = 1000</code>
+			<code>biquadFilter.<mark class="important">Q.value</mark> = 100</code>
+			<code>biquadFilter.<mark class="important">gain.value</mark> = 25</code>
+		</pre>
+	</section>
+	<section class="slide">
+		<h2>BiquadFilterNode \ Типы</h2>
+		<img src="pictures/BiquadFilterNode.png" alt="" class="cover w no-opacity">
+	</section>
+	<section class="slide">
+		<h3>&lt;audio&gt;</h3>
+		<ol>
+			<li>Музыка играет</li>
+			<li class="next">Простое API</li>
+			<li class="next">Можно управлять громкостью и перемоткой</li>
+			<li class="next">Нельзя точно контролировать когда будет воспроизводится звук</li>
+		</ol>
+		<h3>Web Audio</h3>
+		<ol>
+			<li class="next">Более сложное API</li>
+			<li class="next">Можно вообще всё</li>
+		</ol>
+	</section>
+	<section class="slide">
+		<h2>Возможности</h2>
+		<ol>
+			<li>Точная синхронизация</li>
+			<li class="next">Cинтезирование звука (генерация)</li>
+			<li class="next">Обработка/анализ звука</li>
+			<li class="next">Позиционирование в пространстве</li>
+			<li class="next">Многоканальное аудио (до 32-х каналов)</li>
+			<li class="next">WebRTC (P2P)</li>
+			<li class="next">Любой каприз</li>
+		</ol>
+	</section>
+	<section class="slide text-center">
+		<h2>MIDI</h2>
+		<img src="pictures/cover-4.jpg" alt="" class="cover">
+	</section>
+	<section class="slide">
+		<img id="uraljsLogo" src="pictures/logo-color-hor.svg" alt="Логотип митапа UralJS">
+		<style>
+			#uraljsLogo {
+				width: 100%;
+			}
+		</style>
+	</section>
+	<section class="slide">
+		<h2>Смотреть еще</h2>
+		<ol>
+			<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioContext">Документация: AudioContext</a></li>
+			<li><a href="https://www.html5rocks.com/en/tutorials/webaudio/intro/">Интро в Web Audio от html5rocks</a></li>
+			<li><a href="http://synth.soundkeep.com/1">Демо: модульный синтезатор</a></li>
+			<li><a href="http://dinahmoelabs.com/tonecraft">Демо: Tonecraft by DinahMoe</a></li>
+			<li><a href="http://webaudio.github.io/demo-list/">Еще больше демок</a></li>
+			<li><a href="https://tonejs.github.io">Tone.JS – фреймворк</a></li>
+		</ol>
+	</section>
+	<section class="slide question" id="question2">
+		<h2>Вопросы</h2>
+		<p class="note">Максим Сырых</p>
+		<p class="note">syryh_m@kontur.ru</p>
+		<img src="pictures/question-cover.jpg" alt="" class="place right">
+	</section>
+	<section class="slide">
+		<h3 class="shout shrink">tech.skbkontur.ru</h3>
+	</section>
+	<!-- <section class="slide">
+		<h2>Shower key features</h2>
+				<ol>
+					<li>Built on HTML, CSS and vanilla JavaScript</li>
+					<li>Works in all modern browsers</li>
+					<li>Themes are separated from engine</li>
+					<li>Modular and extensible</li>
+					<li>Fully keyboard accessible</li>
+					<li>Printable to PDF</li>
+				</ol>
+				<p class="note">Shower ['ʃəuə] noun. A person or thing that shows.</p>
+	</section>
+	<section class="slide">
+		<h2>Plain text on your slides</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur <a href="#4">adipisicing</a> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <em>quis nostrud</em> exercitation ullamco laboris <strong>nisi ut aliquip</strong>			ex ea commodo consequat. Duis aute irure <i>dolor</i> in reprehenderit in voluptate velit esse cillum <b>dolore</b> eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in <code>&lt;culpa&gt;</code> qui officia deserunt mollit
+			anim id est laborum.</p>
+	</section>
+	<section class="slide">
+		<h2>Two columns if you like</h2>
+		<p class="double">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+			dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+	</section>
+	<section class="slide">
+		<h2>All kind of lists</h2>
+		<ol>
+			<li>Simple lists are marked with bullets</li>
+			<li>Ordered lists begin with a number</li>
+			<li>You can even nest lists one inside another
+				<ul>
+					<li>Or mix their types</li>
+					<li>But do not go too far</li>
+					<li>Otherwise audience will be bored</li>
+				</ul>
+			</li>
+			<li>Look, seven rows exactly!</li>
+		</ol>
+	</section>
+	<section class="slide">
+		<h2>Serious citations</h2>
+		<figure>
+			<blockquote>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+					dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+			</blockquote>
+			<figcaption>Marcus Tullius Cicero</figcaption>
+		</figure>
+	</section>
+
+
+	<section class="slide">
+		<h2 class="shout shrink">You can even shout this way</h2>
+	</section>
+	<section class="slide">
+		<h2>Inner navigation</h2>
+		<ol>
+			<li>Lets you reveal list items one by one</li>
+			<li class="next">To keep some key points</li>
+			<li class="next">In secret from audience</li>
+			<li class="next">But it will work only once</li>
+			<li class="next">Nobody wants to see the same joke twice</li>
+		</ol>
+	</section>
+	<section class="slide grid">
+		<h2>All nicely aligned to grid</h2>
+	</section>
+	<section class="slide" id="see-more">
+		<h2 class="shout">
+			<img src="pictures/logo.svg" alt="Shower logo">
+			<a href="https://github.com/shower/shower">See more on GitHub</a>
+		</h2>
+		<style>
+			#see-more h2 {
+				font-size: 100px
+			}
+
+			#see-more img {
+				width: 0.72em;
+				height: 0.72em;
+			}
+		</style>
+	</section> -->
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"></div>
+	<script src="shower/shower.min.js"></script>
+	<script src="demo-midi.js"></script>
+	<script src="demo-audio-tag.js"></script>
+	<script src="demo-tuner.js"></script>
+	<script src="demo-synth.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+	<!-- Copyright © 2015 Yours Truly, Famous Inc. -->
+	<!-- Photos by John Carey, fiftyfootshadows.net -->
+</body>
+
+</html>
